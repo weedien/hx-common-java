@@ -1,5 +1,8 @@
 package cn.weedien.component.common.cache;
 
+import cn.weedien.component.common.cache.api.CacheGetFilter;
+import cn.weedien.component.common.cache.api.CacheGetIfAbsent;
+import cn.weedien.component.common.cache.api.CacheLoader;
 import jakarta.annotation.Nonnull;
 import org.redisson.api.RBloomFilter;
 

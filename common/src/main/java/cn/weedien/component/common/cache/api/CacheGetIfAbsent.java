@@ -1,4 +1,4 @@
-package cn.weedien.component.common.cache;
+package cn.weedien.component.common.cache.api;
 
 /**
  * 缓存查询为空
