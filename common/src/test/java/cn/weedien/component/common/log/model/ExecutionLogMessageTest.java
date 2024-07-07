@@ -13,7 +13,6 @@ class ExecutionLogMessageTest {
         message.setCode(200);
         message.setMessage("success");
         message.setResult("Hello World!");
-        message.setUri("/hello");
 
         log.info("json: {}", message);
     }

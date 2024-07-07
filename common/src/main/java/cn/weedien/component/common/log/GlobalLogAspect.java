@@ -1,19 +1,14 @@
 package cn.weedien.component.common.log;
 
-import cn.weedien.component.common.log.model.ExecutionLogMessage;
-import cn.weedien.component.common.toolkit.DateUtil;
-import cn.weedien.component.common.toolkit.HttpContextUtil;
-import cn.weedien.component.common.toolkit.IdUtil;
-import cn.weedien.component.common.toolkit.StringUtil;
 import cn.weedien.component.common.convention.exception.AbstractException;
 import cn.weedien.component.common.convention.result.ResultCode;
-import jakarta.servlet.http.HttpServletRequest;
+import cn.weedien.component.common.log.model.ExecutionLogMessage;
+import cn.weedien.component.common.toolkit.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,9 +42,6 @@ public class GlobalLogAspect extends BaseAspectSupport {
         long start = System.nanoTime();
         ExecutionLogMessage logMessage = new ExecutionLogMessage();
 
-        String requestId = getRequestId();
-        MDC.put("requestId", requestId);
-
         try {
             // 请求参数 + 方法名称
             Method method = resolveMethod(joinPoint);
@@ -79,7 +71,6 @@ public class GlobalLogAspect extends BaseAspectSupport {
             } else {
                 log.error("request failed: {}", logMessage.endMessage());
             }
-            MDC.clear();
         }
     }
 
@@ -150,22 +141,6 @@ public class GlobalLogAspect extends BaseAspectSupport {
         }
 
         return paramMap;
-    }
-
-    /**
-     * 获取RequestId
-     * 优先从header头获取，如果没有则自己生成
-     *
-     * @return RequestId
-     */
-    private String getRequestId() {
-        HttpServletRequest request = HttpContextUtil.getRequest();
-        if (StringUtil.hasText(request.getHeader("x-request-id"))) {
-            return request.getHeader("x-request-id");
-        } else if (StringUtil.hasText(MDC.get("requestId"))) {
-            return MDC.get("requestId");
-        }
-        return IdUtil.simpleULID();
     }
 
 }

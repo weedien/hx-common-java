@@ -1,5 +1,6 @@
 package cn.weedien.component.common.config;
 
+import cn.weedien.component.common.filter.TraceIdFilter;
 import cn.weedien.component.common.filter.UserTransmitFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -18,4 +19,15 @@ public class CommonAutoConfiguration {
         registration.setOrder(USER_TRANSMIT_FILTER_ORDER);
         return registration;
     }
+
+    @Bean
+    public FilterRegistrationBean<TraceIdFilter> globalTraceIdFilter() {
+        FilterRegistrationBean<TraceIdFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new TraceIdFilter());
+        registration.addUrlPatterns("/*");
+        registration.setOrder(USER_TRANSMIT_FILTER_ORDER);
+        return registration;
+    }
+
+
 }
