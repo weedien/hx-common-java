@@ -3,25 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <groupId>cn.weedien</groupId>
-    <artifactId>components</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>components</name>
-    <description>components</description>
+    <artifactId>hx-common-parent</artifactId>
+    <version>${revision}</version>
+    <name>hx-common-parent</name>
+    <description>开发通用组件</description>
     <packaging>pom</packaging>
 
     <modules>
-        <module>common</module>
+        <module>hx-common-core</module>
+        <module>hx-common-dependencies</module>
+        <module>hx-common-spring-boot-starter</module>
     </modules>
 
     <properties>
+        <revision>0.0.1</revision>
         <java.version>21</java.version>
     </properties>
 
@@ -29,16 +25,16 @@
         <dependencies>
             <dependency>
                 <groupId>cn.weedien</groupId>
-                <artifactId>dependencies</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>hx-common-dependencies</artifactId>
+                <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <!-- 内部模块 -->
             <dependency>
                 <groupId>cn.weedien</groupId>
-                <artifactId>common</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>hx-common-core</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -51,6 +47,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>
